@@ -25,11 +25,13 @@ namespace d3d11
 {
 HRESULT SetDebugName(ID3D11DeviceChild *resource, const char *name);
 
+#if NTDDI_VERSION >= NTDDI_WIN8
 template <typename T>
 HRESULT SetDebugName(angle::ComPtr<T> &resource, const char *name)
 {
     return SetDebugName(resource.Get(), name);
 }
+#endif
 }  // namespace d3d11
 
 class Renderer11;

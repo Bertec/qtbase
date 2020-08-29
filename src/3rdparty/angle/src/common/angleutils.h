@@ -24,7 +24,9 @@ namespace angle
 {
 
 #if defined(ANGLE_ENABLE_D3D9) || defined(ANGLE_ENABLE_D3D11)
+#if NTDDI_VERSION >= NTDDI_WIN8
 using Microsoft::WRL::ComPtr;
+#endif
 #endif  // defined(ANGLE_ENABLE_D3D9) || defined(ANGLE_ENABLE_D3D11)
 
 class NonCopyable

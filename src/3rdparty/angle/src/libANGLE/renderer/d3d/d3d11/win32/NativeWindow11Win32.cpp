@@ -31,9 +31,11 @@ NativeWindow11Win32::NativeWindow11Win32(EGLNativeWindowType window,
 
 NativeWindow11Win32::~NativeWindow11Win32()
 {
+#if NTDDI_VERSION >= NTDDI_WIN8
     SafeRelease(mCompositionTarget);
     SafeRelease(mDevice);
     SafeRelease(mVisual);
+#endif
 }
 
 bool NativeWindow11Win32::initialize()
@@ -65,6 +67,7 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
         return E_INVALIDARG;
     }
 
+#if NTDDI_VERSION >= NTDDI_WIN8
     if (mDirectComposition)
     {
         HMODULE dcomp = ::GetModuleHandle(TEXT("dcomp.dll"));
@@ -174,6 +177,7 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
         SafeRelease(factory2);
         return result;
     }
+#endif
 
     DXGI_SWAP_CHAIN_DESC swapChainDesc               = {};
     swapChainDesc.BufferCount                        = 1;
@@ -203,10 +207,12 @@ HRESULT NativeWindow11Win32::createSwapChain(ID3D11Device *device,
 
 void NativeWindow11Win32::commitChange()
 {
+#if NTDDI_VERSION >= NTDDI_WIN8
     if (mDevice)
     {
         mDevice->Commit();
     }
+#endif
 }
 
 // static

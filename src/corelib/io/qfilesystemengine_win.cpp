@@ -664,7 +664,7 @@ QFileSystemEntry QFileSystemEngine::absoluteName(const QFileSystemEntry &entry)
     return QFileSystemEntry(ret, QFileSystemEntry::FromInternalPath());
 }
 
-#if defined(Q_CC_MINGW) && WINVER < 0x0602 //  Windows 8 onwards
+#if WINVER < 0x0602 //  Windows 8 onwards
 
 typedef struct _FILE_ID_INFO {
     ULONGLONG VolumeSerialNumber;
